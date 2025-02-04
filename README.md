@@ -5,7 +5,6 @@ A real-time chat server developed in Go, with a client in Godot. This project se
 ## 📌 Features
 
 - WebSocket communication
-- Hosting for both client and server
 - User authentication (coming soon)
 - Private messages and chat rooms (coming soon)
 - Message storage in a database (coming soon)
@@ -15,26 +14,22 @@ A real-time chat server developed in Go, with a client in Godot. This project se
 
 ### 1️⃣ Clone the repository
 ```bash
-git clone https://github.com/your-repo/chat-server.git
-cd chat-server
+git clone https://github.com/Fullavatar/WebSocketChat.git
+cd WebSocketChat
 ```
 
 ### 2️⃣ Run the server
 
 Compile and run the Go server:
 ```bash
-go build -o chat-server ./cmd/main.go
-./chat-server
+go build -o Builds/Server.exe./cmd/main.go
+./Builds/Server.exe
 ```
 
 ### 3️⃣ Configure the client (Godot)
-The client is available in the `client/` folder. It must be configured to connect to your WebSocket server address.
+The client's Godot Project is available in the `Client/` folder. You need Godot 4.4 to open and export it.
+The default export folder is `Builds/` -> `Client.exe`
 
-## 🌐 Deployment
-
-To make your server accessible externally:
-1. Use a reverse proxy (e.g., Nginx) or Cloudflare to mask your IP.
-2. Host the client on GitHub Releases or a web server.
 
 ## 🔜 Upcoming Improvements
 
