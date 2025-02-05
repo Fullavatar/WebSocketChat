@@ -1,4 +1,4 @@
-module github.com/fullavatar/realTimeChat
+module github.com/fullavatar/websocketchat
 
 go 1.23
 

@@ -1,7 +1,7 @@
-package websocket_chat_test
+package websocketserver_test
 
 import (
-	server2 "github.com/fullavatar/realTimeChat/websocket_chat"
+	"github.com/fullavatar/websocketchat/websocketserver"
 	"github.com/gorilla/websocket"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -12,7 +12,7 @@ import (
 )
 
 func TestWebSocketBroadcast(t *testing.T) {
-	wsServer := server2.NewWebSocketServer()
+	wsServer := websocketserver.NewWebSocketServer()
 	server := httptest.NewServer(wsServer)
 	defer server.Close()
 

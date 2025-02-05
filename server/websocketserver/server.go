@@ -1,4 +1,4 @@
-package websocket_chat
+package websocketserver
 
 import (
 	"log"
