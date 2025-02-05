@@ -1,18 +1,19 @@
 package main
 
 import (
-	"github.com/fullavatar/realTimeChat"
 	"log"
 	"net/http"
+
+	"github.com/fullavatar/realTimeChat/websocket_chat"
 )
 
 func main() {
-	server := realTimeChat.NewWebSocketServer()
+	server := websocket_chat.NewWebSocketServer()
 
 	http.Handle("/ws", server)
 
 	port := "5000"
-	log.Println("WebSocket server running on ws://localhost:" + port + "/ws")
+	log.Println("WebSocket websocket_chat running on ws://localhost:" + port + "/ws")
 
 	if err := http.ListenAndServe(":"+port, nil); err != nil {
 		log.Fatal("Server error:", err)

@@ -1,4 +1,4 @@
-package realTimeChat
+package websocket_chat
 
 import (
 	"log"
