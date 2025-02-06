@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://w6q1covoc7xy"]
+
+[ext_resource type="Script" path="res://script/login.gd" id="1_mc475"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 576.0
+offset_top = 324.0
+offset_right = -576.0
+offset_bottom = -324.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mc475")
+
+[node name="Connect" type="Button" parent="."]
+layout_mode = 0
+offset_left = -80.0
+offset_top = -44.0
+offset_right = 80.0
+offset_bottom = -8.0
+text = "Connect ..."
+
+[node name="Address" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = -160.0
+offset_top = -132.0
+offset_right = 24.0
+offset_bottom = -101.0
+placeholder_text = "Enter IP address ..."
+
+[node name="Port" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = -132.0
+offset_right = 144.0
+offset_bottom = -101.0
+placeholder_text = "Enter Port ..."
+
+[connection signal="pressed" from="Connect" to="." method="_on_connect_pressed"]
