@@ -1,3 +1,9 @@
+![GitHub Release](https://img.shields.io/github/v/release/Fullavatar/WebSocketChat?display_name=tag&style=flat)
+
+![Godot Engine](https://img.shields.io/badge/GODOT-%23FFFFFF.svg?style=for-the-badge&logo=godot-engine)   ![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
+
+
+
 # Real-Time Chat Server
 
 A real-time chat server developed in Go, with a client in Godot. This project serves as a learning exercise for Go, Godot, and MySQL.
