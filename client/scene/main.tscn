@@ -4,6 +4,7 @@
 
 [sub_resource type="SystemFont" id="SystemFont_itxqv"]
 font_names = PackedStringArray("Comic Sans MS")
+subpixel_positioning = 0
 
 [sub_resource type="Theme" id="Theme_v0l8b"]
 default_font = SubResource("SystemFont_itxqv")
