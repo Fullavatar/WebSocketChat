@@ -1,6 +1,6 @@
 extends Control
 
-var address:String
+var address:String = "5000"
 var ws:WebSocketPeer
 var username_set = false
 
