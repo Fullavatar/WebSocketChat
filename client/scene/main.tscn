@@ -1,0 +1,76 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhwe2xl6qgluv"]
+
+[ext_resource type="Script" path="res://script/main.gd" id="1_itxqv"]
+
+[sub_resource type="SystemFont" id="SystemFont_itxqv"]
+font_names = PackedStringArray("Comic Sans MS")
+subpixel_positioning = 0
+
+[sub_resource type="Theme" id="Theme_v0l8b"]
+default_font = SubResource("SystemFont_itxqv")
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_itxqv")
+
+[node name="Username" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 576.0
+offset_right = 192.0
+offset_bottom = 607.0
+placeholder_text = "Username"
+max_length = 20
+caret_blink = true
+
+[node name="Message" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 576.0
+offset_right = 1056.0
+offset_bottom = 607.0
+placeholder_text = "Write a message..."
+editable = false
+clear_button_enabled = true
+caret_blink = true
+
+[node name="Quit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1088.0
+offset_top = 24.0
+offset_right = 1136.0
+offset_bottom = 56.0
+text = "Quit"
+
+[node name="BG" type="ItemList" parent="."]
+clip_contents = false
+layout_mode = 0
+offset_left = 240.0
+offset_top = 24.0
+offset_right = 1056.0
+offset_bottom = 552.0
+allow_search = false
+same_column_width = true
+
+[node name="Chat" type="RichTextLabel" parent="BG"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 808.0
+offset_bottom = 528.0
+focus_mode = 2
+theme = SubResource("Theme_v0l8b")
+bbcode_enabled = true
+scroll_following = true
+context_menu_enabled = true
+threaded = true
+selection_enabled = true
+
+[connection signal="text_submitted" from="Username" to="." method="_on_username_text_submitted"]
+[connection signal="text_submitted" from="Message" to="." method="_on_message_text_submitted"]
+[connection signal="pressed" from="Quit" to="." method="_on_button_pressed"]

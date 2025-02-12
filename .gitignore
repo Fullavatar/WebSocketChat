@@ -1,5 +1,8 @@
 
-Client/.godot/
-Client/icon.svg.import
+client/.godot/
+client/icon.svg.import
 
-Server/.idea
+server/.idea
+
+builds/
+client/asset/icon.svg.import
