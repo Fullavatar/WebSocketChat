@@ -11,6 +11,6 @@ config_version=5
 [application]
 
 config/name="ClientWebSocket"
-run/main_scene="res://scene/main.tscn"
+run/main_scene="res://scene/login.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://asset/icon.svg"
