@@ -7,24 +7,24 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-type messageSignUp messageBase
+type messageStatus messageBase
 
-func (m messageSignUp) getType() messageType {
+func (m messageStatus) getType() messageType {
 	return m.Type
 }
 
-func (m messageSignUp) getCaller() *websocket.Conn {
+func (m messageStatus) getCaller() *websocket.Conn {
 	return m.Caller
 }
 
-func parseSignUp(jsonData []byte) (messageInterface, error) {
-	var message messageSignUp
+func parseStatus(jsonData []byte) (messageInterface, error) {
+	var message messageStatus
 	if err := json.Unmarshal(jsonData, &message); err != nil {
 		return nil, fmt.Errorf("failed to parse ping: %w", err)
 	}
 	return message, nil
 }
 
-func handleSignUp(message messageInterface) {
+func handleStatus(message messageInterface) {
 
 }

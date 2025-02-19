@@ -3,12 +3,18 @@ package websocketserver
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/gorilla/websocket"
 )
 
 type messageDisconnection messageBase
 
 func (m messageDisconnection) getType() messageType {
 	return m.Type
+}
+
+func (m messageDisconnection) getCaller() *websocket.Conn {
+	return m.Caller
 }
 
 func parseDisconnection(jsonData []byte) (messageInterface, error) {
