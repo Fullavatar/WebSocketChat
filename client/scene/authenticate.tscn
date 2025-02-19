@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://y5laeq85f0uy"]
+
+[node name="Authenticate" type="Control"]
+modulate = Color(0.378864, 0.73734, 0.393514, 1)
+layout_mode = 3
+anchor_right = 0.278
+anchor_bottom = 0.741
+offset_right = -0.256042
+offset_bottom = -0.16803
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Username" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 100.0
+offset_right = 244.0
+offset_bottom = 131.0
+placeholder_text = "Enter Username ..."
+
+[node name="Password" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 180.0
+offset_right = 244.0
+offset_bottom = 211.0
+placeholder_text = "Enter Password ..."
+selecting_enabled = false
+secret = true
+secret_character = "*"
+
+[node name="Login" type="Button" parent="."]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 300.0
+offset_right = 244.0
+offset_bottom = 336.0
+text = "Login ..."
+
+[node name="Create" type="Button" parent="."]
+modulate = Color(4.04298e-06, 0.99452, 0.785164, 1)
+layout_mode = 0
+offset_left = 134.0
+offset_top = 350.0
+offset_right = 296.0
+offset_bottom = 386.0
+scale = Vector2(0.6, 0.6)
+text = "Create new account"
+
+[node name="Forget" type="Button" parent="."]
+modulate = Color(4.04298e-06, 0.99452, 0.785164, 1)
+layout_mode = 0
+offset_left = 134.0
+offset_top = 223.0
+offset_right = 296.0
+offset_bottom = 259.0
+scale = Vector2(0.6, 0.6)
+text = "Forget Password ?"

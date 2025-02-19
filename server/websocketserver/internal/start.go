@@ -38,30 +38,7 @@ func (s *WebSocketHandler) ServeHTTP(writer http.ResponseWriter, request *http.R
 	}
 	defer s.removeClient(conn)
 
-	_, nickname, err := conn.ReadMessage()
-	if err != nil {
-		log.Println("Failed to read nickname:", err)
-		return
-	}
-
-	if string(nickname) == "" {
-		return
-	}
-
-	s.mutex.Lock()
-	s.clients[conn] = string(nickname)
-	s.mutex.Unlock()
-
-	log.Println(Yellow, string(nickname), Reset, "joined the chat")
-
-	for {
-		_, message, err := conn.ReadMessage()
-		if err != nil {
-			log.Println(Yellow, s.clients[conn], Reset, "disconnected")
-			break
-		}
-		s.broadcastMessage(s.clients[conn], message)
-	}
+	s.handleClient(conn)
 }
 
 func (s *WebSocketHandler) removeClient(conn *websocket.Conn) {
@@ -76,18 +53,43 @@ func (s *WebSocketHandler) removeClient(conn *websocket.Conn) {
 	log.Println(Yellow, nickname, Reset, "left the chat")
 }
 
-func (s *WebSocketHandler) broadcastMessage(sender string, message []byte) {
-	s.mutex.Lock()
-	defer s.mutex.Unlock()
+// func (s *WebSocketHandler) broadcastMessage(sender string, message []byte) {
+// 	s.mutex.Lock()
+// 	defer s.mutex.Unlock()
 
-	fullMessage := sender + ": " + string(message)
+// 	fullMessage := sender + ": " + string(message)
 
-	for client := range s.clients {
-		err := client.WriteMessage(websocket.TextMessage, []byte(fullMessage))
-		if err != nil {
-			log.Println(Red+"Broadcast error:"+Reset, err)
-			_ = client.Close()
-			delete(s.clients, client)
-		}
-	}
-}
+// 	for client := range s.clients {
+// 		err := client.WriteMessage(websocket.TextMessage, []byte(fullMessage))
+// 		if err != nil {
+// 			log.Println(Red+"Broadcast error:"+Reset, err)
+// 			_ = client.Close()
+// 			delete(s.clients, client)
+// 		}
+// 	}
+// }
+
+// _, nickname, err := conn.ReadMessage()
+// 	if err != nil {
+// 		log.Println("Failed to read nickname:", err)
+// 		return
+// 	}
+
+// 	if string(nickname) == "" {
+// 		return
+// 	}
+
+// 	s.mutex.Lock()
+// 	s.clients[conn] = string(nickname)
+// 	s.mutex.Unlock()
+
+// 	log.Println(Yellow, string(nickname), Reset, "joined the chat")
+
+// 	for {
+// 		_, message, err := conn.ReadMessage()
+// 		if err != nil {
+// 			log.Println(Yellow, s.clients[conn], Reset, "disconnected")
+// 			break
+// 		}
+// 		s.broadcastMessage(s.clients[conn], message)
+// 	}

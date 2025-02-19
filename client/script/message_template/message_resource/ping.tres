@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Message" load_steps=2 format=3 uid="uid://bkutt000afjcs"]
+
+[ext_resource type="Script" path="res://script/message.gd" id="1_pc1v5"]
+
+[resource]
+script = ExtResource("1_pc1v5")
+type = 4
+metadata/_custom_type_script = ExtResource("1_pc1v5")

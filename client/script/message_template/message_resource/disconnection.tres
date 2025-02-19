@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Message" load_steps=2 format=3 uid="uid://b62maw0g5x4eg"]
+
+[ext_resource type="Script" path="res://script/message.gd" id="1_ls4so"]
+
+[resource]
+script = ExtResource("1_ls4so")
+type = 3
+metadata/_custom_type_script = ExtResource("1_ls4so")

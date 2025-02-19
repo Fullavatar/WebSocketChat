@@ -1,0 +1,15 @@
+extends Node
+
+enum MessageType {
+	SIGNUP,
+	FORGET,
+	CONNECTION,
+	DISCONNECTION,
+	PING,
+	CHAT,
+	PRIVATE_CHAT,
+	STATUS,
+	ERROR,
+	ROOM_JOIN,
+	ROOM_LEAVE,
+}

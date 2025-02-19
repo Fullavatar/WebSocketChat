@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7aov0asuh7mn"]
+
+[ext_resource type="Script" path="res://script/server.gd" id="1_yetrp"]
+
+[node name="Server" type="Control"]
+modulate = Color(0.678977, 0.764858, 0.931928, 1)
+layout_mode = 3
+anchor_right = 0.278
+anchor_bottom = 0.741
+offset_right = -0.256042
+offset_bottom = -0.16803
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yetrp")
+
+[node name="Address" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 100.0
+offset_right = 244.0
+offset_bottom = 131.0
+placeholder_text = "Enter IP address ..."
+
+[node name="Port" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 180.0
+offset_right = 164.0
+offset_bottom = 211.0
+placeholder_text = "Enter Port ..."
+
+[node name="Connect" type="Button" parent="."]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 300.0
+offset_right = 220.0
+offset_bottom = 336.0
+text = "Connect ..."
+
+[connection signal="pressed" from="Connect" to="." method="_on_connect_pressed"]
