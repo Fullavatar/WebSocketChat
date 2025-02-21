@@ -9,11 +9,6 @@ import (
 
 type messageType string
 
-type messageInterface interface {
-	getType() messageType
-	getCaller() *websocket.Conn
-}
-
 const (
 	SIGNUP        messageType = "signup"
 	FORGET        messageType = "forget"
@@ -28,13 +23,23 @@ const (
 	ROOMLEAVE     messageType = "roomleave"
 )
 
-type messageEmpty struct {
-	Type messageType `json:"Type"`
+type messageInterface interface {
+	getType() messageType
 }
 
-type messageBase struct {
-	Type   messageType `json:"Type"`
-	Caller *websocket.Conn
+type baseMessage struct {
+	Type messageType     `json:"Type"`
+	Data json.RawMessage `json:"Data"`
+}
+
+type processedMessage struct {
+	Caller  *websocket.Conn
+	Type    messageType
+	Message messageInterface
+}
+
+func (m processedMessage) getType() messageType {
+	return m.Type
 }
 
 var messageParsers = map[messageType]func([]byte) (messageInterface, error){
@@ -51,7 +56,7 @@ var messageParsers = map[messageType]func([]byte) (messageInterface, error){
 	DISCONNECTION: parseDisconnection,
 }
 
-var messageHandlers = map[messageType]func(messageInterface){
+var messageHandlers = map[messageType]func(processedMessage){
 	PING:          handlePing,
 	CHAT:          handleChat,
 	PRIVATECHAT:   handlePrivateChat,
@@ -79,19 +84,19 @@ var messageBuilders = map[messageType]func() messageInterface{
 	DISCONNECTION: func() messageInterface { return &messageDisconnection{Type: DISCONNECTION} },
 }
 
-func parseMessage(jsonData []byte, conn *websocket.Conn) (messageInterface, error) {
-	var message messageEmpty
-	if err := json.Unmarshal(jsonData, &message); err != nil {
-		return nil, fmt.Errorf("failed to parse Type: %w", err)
+func parseMessage(message baseMessage, conn *websocket.Conn) (processedMessage, error) {
+	if parser, found := messageParsers[message.Type]; found {
+		completedMessage, err := parser(message.Data)
+		if err != nil {
+			return processedMessage{}, fmt.Errorf("failed to parse message: %w", err)
+		}
+		return processedMessage{Type: message.Type, Caller: conn, Message: completedMessage}, nil
 	}
-	var message_base messageBase = messageBase{Type: message.Type, Caller: conn}
-	if parser, found := messageParsers[message_base.Type]; found {
-		return parser(jsonData)
-	}
-	return nil, fmt.Errorf("unknown message type: %s", message_base.Type)
+
+	return processedMessage{}, fmt.Errorf("unknown message type: %s", message.Type)
 }
 
-func handleMessage(message messageInterface) error {
+func handleMessage(message processedMessage) error {
 	if handler, found := messageHandlers[message.getType()]; found {
 		handler(message)
 		return nil

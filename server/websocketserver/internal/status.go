@@ -3,18 +3,12 @@ package websocketserver
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/gorilla/websocket"
 )
 
-type messageStatus messageBase
+type messageStatus processedMessage
 
 func (m messageStatus) getType() messageType {
 	return m.Type
-}
-
-func (m messageStatus) getCaller() *websocket.Conn {
-	return m.Caller
 }
 
 func parseStatus(jsonData []byte) (messageInterface, error) {
@@ -25,6 +19,6 @@ func parseStatus(jsonData []byte) (messageInterface, error) {
 	return message, nil
 }
 
-func handleStatus(message messageInterface) {
+func handleStatus(message processedMessage) {
 
 }

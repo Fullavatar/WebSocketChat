@@ -3,18 +3,12 @@ package websocketserver
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/gorilla/websocket"
 )
 
-type messageSignUp messageBase
+type messageSignUp processedMessage
 
 func (m messageSignUp) getType() messageType {
 	return m.Type
-}
-
-func (m messageSignUp) getCaller() *websocket.Conn {
-	return m.Caller
 }
 
 func parseSignUp(jsonData []byte) (messageInterface, error) {
@@ -25,6 +19,6 @@ func parseSignUp(jsonData []byte) (messageInterface, error) {
 	return message, nil
 }
 
-func handleSignUp(message messageInterface) {
+func handleSignUp(message processedMessage) {
 
 }

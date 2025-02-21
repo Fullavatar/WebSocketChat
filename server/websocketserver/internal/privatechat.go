@@ -3,18 +3,12 @@ package websocketserver
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/gorilla/websocket"
 )
 
-type messagePrivateChat messageBase
+type messagePrivateChat processedMessage
 
 func (m messagePrivateChat) getType() messageType {
 	return m.Type
-}
-
-func (m messagePrivateChat) getCaller() *websocket.Conn {
-	return m.Caller
 }
 
 func parsePrivateChat(jsonData []byte) (messageInterface, error) {
@@ -25,6 +19,6 @@ func parsePrivateChat(jsonData []byte) (messageInterface, error) {
 	return message, nil
 }
 
-func handlePrivateChat(message messageInterface) {
+func handlePrivateChat(message processedMessage) {
 
 }

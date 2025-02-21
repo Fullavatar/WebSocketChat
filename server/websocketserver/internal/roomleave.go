@@ -3,18 +3,12 @@ package websocketserver
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/gorilla/websocket"
 )
 
-type messageRoomLeave messageBase
+type messageRoomLeave processedMessage
 
 func (m messageRoomLeave) getType() messageType {
 	return m.Type
-}
-
-func (m messageRoomLeave) getCaller() *websocket.Conn {
-	return m.Caller
 }
 
 func parseRoomLeave(jsonData []byte) (messageInterface, error) {
@@ -25,6 +19,6 @@ func parseRoomLeave(jsonData []byte) (messageInterface, error) {
 	return message, nil
 }
 
-func handleRoomLeave(message messageInterface) {
+func handleRoomLeave(message processedMessage) {
 
 }

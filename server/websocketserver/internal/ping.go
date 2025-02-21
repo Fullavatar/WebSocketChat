@@ -3,18 +3,14 @@ package websocketserver
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/gorilla/websocket"
 )
 
-type messagePing messageBase
+type messagePing struct {
+	Type messageType
+}
 
 func (m messagePing) getType() messageType {
 	return m.Type
-}
-
-func (m messagePing) getCaller() *websocket.Conn {
-	return m.Caller
 }
 
 func parsePing(jsonData []byte) (messageInterface, error) {
@@ -25,11 +21,11 @@ func parsePing(jsonData []byte) (messageInterface, error) {
 	return message, nil
 }
 
-func handlePing(message messageInterface) {
+func handlePing(message processedMessage) {
 	msg, err := buildMessage(PING)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	sendMessage(msg, message.getCaller())
+	sendMessage(msg, message.Caller)
 }

@@ -3,18 +3,12 @@ package websocketserver
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/gorilla/websocket"
 )
 
-type messageForget messageBase
+type messageForget processedMessage
 
 func (m messageForget) getType() messageType {
 	return m.Type
-}
-
-func (m messageForget) getCaller() *websocket.Conn {
-	return m.Caller
 }
 
 func parseForget(jsonData []byte) (messageInterface, error) {
@@ -25,6 +19,6 @@ func parseForget(jsonData []byte) (messageInterface, error) {
 	return message, nil
 }
 
-func handleForget(message messageInterface) {
+func handleForget(message processedMessage) {
 
 }
