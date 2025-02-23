@@ -36,7 +36,6 @@ func (s *WebSocketHandler) ServeHTTP(writer http.ResponseWriter, request *http.R
 		log.Println("Failed to upgrade:", err)
 		return
 	}
-	defer s.removeClient(conn)
 
 	s.handleClient(conn)
 }

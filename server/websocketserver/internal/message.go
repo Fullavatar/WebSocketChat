@@ -3,24 +3,23 @@ package websocketserver
 import (
 	"encoding/json"
 	"fmt"
-
 	"github.com/gorilla/websocket"
 )
 
 type messageType string
 
 const (
-	SIGNUP        messageType = "signup"
-	FORGET        messageType = "forget"
-	CONNECTION    messageType = "connection"
-	DISCONNECTION messageType = "disconnection"
-	PING          messageType = "ping"
-	CHAT          messageType = "chat"
-	PRIVATECHAT   messageType = "privatechat"
-	STATUS        messageType = "status"
-	ERROR         messageType = "error"
-	ROOMJOIN      messageType = "roomjoin"
-	ROOMLEAVE     messageType = "roomleave"
+	SIGNUP        messageType = "SignUp"
+	FORGET        messageType = "Forget"
+	CONNECTION    messageType = "Connection"
+	DISCONNECTION messageType = "Disconnection"
+	PING          messageType = "Ping"
+	CHAT          messageType = "Chat"
+	PRIVATECHAT   messageType = "PrivateChat"
+	STATUS        messageType = "Status"
+	ERROR         messageType = "Error"
+	ROOMJOIN      messageType = "RoomJoin"
+	ROOMLEAVE     messageType = "RoomLeave"
 )
 
 type messageInterface interface {
@@ -28,32 +27,26 @@ type messageInterface interface {
 }
 
 type baseMessage struct {
-	Type messageType     `json:"Type"`
-	Data json.RawMessage `json:"Data"`
+	Type messageType `json:"Type"`
 }
 
 type processedMessage struct {
 	Caller  *websocket.Conn
-	Type    messageType
 	Message messageInterface
 }
 
-func (m processedMessage) getType() messageType {
-	return m.Type
-}
-
-var messageParsers = map[messageType]func([]byte) (messageInterface, error){
-	PING:          parsePing,
-	CHAT:          parseChat,
-	PRIVATECHAT:   parsePrivateChat,
-	STATUS:        parseStatus,
-	ERROR:         parseError,
-	ROOMJOIN:      parseRoomJoin,
-	ROOMLEAVE:     parseRoomLeave,
-	SIGNUP:        parseSignUp,
-	FORGET:        parseForget,
-	CONNECTION:    parseConnection,
-	DISCONNECTION: parseDisconnection,
+var messageStructs = map[messageType]func() messageInterface{
+	PING:          func() messageInterface { return &messagePing{} },
+	CHAT:          func() messageInterface { return &messageChat{} },
+	PRIVATECHAT:   func() messageInterface { return &messagePrivateChat{} },
+	STATUS:        func() messageInterface { return &messageStatus{} },
+	ERROR:         func() messageInterface { return &messageError{} },
+	ROOMJOIN:      func() messageInterface { return &messageRoomJoin{} },
+	ROOMLEAVE:     func() messageInterface { return &messageRoomLeave{} },
+	SIGNUP:        func() messageInterface { return &messageSignUp{} },
+	FORGET:        func() messageInterface { return &messageForget{} },
+	CONNECTION:    func() messageInterface { return &messageConnection{} },
+	DISCONNECTION: func() messageInterface { return &messageDisconnection{} },
 }
 
 var messageHandlers = map[messageType]func(processedMessage){
@@ -84,29 +77,29 @@ var messageBuilders = map[messageType]func() messageInterface{
 	DISCONNECTION: func() messageInterface { return &messageDisconnection{Type: DISCONNECTION} },
 }
 
-func parseMessage(message baseMessage, conn *websocket.Conn) (processedMessage, error) {
-	if parser, found := messageParsers[message.Type]; found {
-		completedMessage, err := parser(message.Data)
+func parseMessage(mType messageType, rawMessage []byte, conn *websocket.Conn) (processedMessage, error) {
+	if structure, found := messageStructs[mType]; found {
+		message := structure()
+		err := json.Unmarshal(rawMessage, &message)
 		if err != nil {
 			return processedMessage{}, fmt.Errorf("failed to parse message: %w", err)
 		}
-		return processedMessage{Type: message.Type, Caller: conn, Message: completedMessage}, nil
+		return processedMessage{Caller: conn, Message: message}, nil
 	}
-
-	return processedMessage{}, fmt.Errorf("unknown message type: %s", message.Type)
+	return processedMessage{}, fmt.Errorf("failed to parse message: unknown message type: %v", mType)
 }
 
 func handleMessage(message processedMessage) error {
-	if handler, found := messageHandlers[message.getType()]; found {
+	if handler, found := messageHandlers[message.Message.getType()]; found {
 		handler(message)
 		return nil
 	}
-	return fmt.Errorf("unknown message type: %s", message.getType())
+	return fmt.Errorf("unknown message type: %s", message.Message.getType())
 }
 
-func buildMessage(type_to_build messageType) (messageInterface, error) {
-	if builder, found := messageBuilders[type_to_build]; found {
+func buildMessage(typeToBuild messageType) (messageInterface, error) {
+	if builder, found := messageBuilders[typeToBuild]; found {
 		return builder(), nil
 	}
-	return nil, fmt.Errorf("unknown message type: %s", type_to_build)
+	return nil, fmt.Errorf("unknown message type: %s", typeToBuild)
 }

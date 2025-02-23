@@ -19,13 +19,19 @@ func serverConnect(address: String, port: String) -> void:
 				ws.poll()
 				if ws.get_available_packet_count() > 0:
 					var packet = ws.get_packet()
-					if packet.size() > 0:
-						authenticate(address, port)
+					var json_string = packet.get_string_from_utf8()
+					var response_data = JSON.parse_string(json_string)
+					if response_data["Type"] != "Ping":
+						#TODO: add logs
+						ws.close()
 						return
-				if (Time.get_ticks_msec() / 1000.0) - start_time >= timeout:
-					print("Timeout atteint")
+					authenticate(address, port)
 					return
-				await get_tree().process_frame  # Laisser Godot avancer les frames
+				if (Time.get_ticks_msec() / 1000.0) - start_time >= timeout:
+					ws.close()
+					return
+				await get_tree().process_frame
+			print("Connection closed")
 
 
 func authenticate(address, port):
