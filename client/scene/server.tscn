@@ -21,13 +21,18 @@ offset_right = 244.0
 offset_bottom = 131.0
 placeholder_text = "Enter IP address ..."
 
-[node name="Port" type="LineEdit" parent="."]
+[node name="Port" type="SpinBox" parent="."]
 layout_mode = 0
 offset_left = 60.0
 offset_top = 180.0
 offset_right = 164.0
 offset_bottom = 211.0
-placeholder_text = "Enter Port ..."
+min_value = 1.0
+max_value = 65535.0
+value = 1.0
+rounded = true
+custom_arrow_step = 1.0
+select_all_on_focus = true
 
 [node name="Connect" type="Button" parent="."]
 layout_mode = 0

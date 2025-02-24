@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://w6q1covoc7xy"]
+[gd_scene load_steps=5 format=3 uid="uid://w6q1covoc7xy"]
 
-[ext_resource type="Script" path="res://script/login.gd" id="1_mc475"]
+[ext_resource type="Script" path="res://script/login.gd" id="1_7yur4"]
 [ext_resource type="PackedScene" uid="uid://c7aov0asuh7mn" path="res://scene/server.tscn" id="2_76uxg"]
 [ext_resource type="PackedScene" uid="uid://y5laeq85f0uy" path="res://scene/authenticate.tscn" id="3_7yur4"]
+[ext_resource type="Script" path="res://script/logger.gd" id="4_7yur4"]
 
 [node name="Control" type="Control" groups=["login"]]
 layout_mode = 3
@@ -15,7 +16,7 @@ offset_right = -576.0
 offset_bottom = -324.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_mc475")
+script = ExtResource("1_7yur4")
 
 [node name="Server" parent="." instance=ExtResource("2_76uxg")]
 layout_mode = 1
@@ -44,3 +45,4 @@ scroll_following = true
 context_menu_enabled = true
 threaded = true
 selection_enabled = true
+script = ExtResource("4_7yur4")

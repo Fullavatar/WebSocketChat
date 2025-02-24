@@ -1,5 +1,16 @@
 extends Control
 
-
 func _on_connect_pressed() -> void:
-	get_tree().call_group("login", "serverConnect", $Address.text, $Port.text)
+	updateConnectionUIState(false)
+	get_tree().call_group(
+		"login",
+		"serverConnect",
+		$Address.text,
+		$Port.get_line_edit().text,
+	)
+
+
+func updateConnectionUIState(can_edit:bool):
+	$Address.editable = can_edit
+	$Port.editable = can_edit
+	$Connect.disabled = !can_edit
