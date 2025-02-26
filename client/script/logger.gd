@@ -7,16 +7,16 @@ func write(logs:Global.LogType):
 
 func type_to_string(type:Global.LogType) -> String:
 	match type:
-		Global.LogType.VALIDADDRESS:
+		Global.LogType.NOT_VALID_ADDRESS:
 			return "Please enter a valid address/port"
 		Global.LogType.CONNECTING:
 			return "Connecting to server..."
-		Global.LogType.FAILEDCONNECTION:
+		Global.LogType.CONNECTION_FAILED:
 			return "Failed to connect to server"
-		Global.LogType.TIMEOUT:
+		Global.LogType.CONNECTION_TIMEOUT:
 			return "Connection timeout"
-		Global.LogType.CANNOTPARSE:
+		Global.LogType.CANNOT_PARSE_RESPONSE:
 			return "Can't parse response"
-		Global.LogType.CONNECTIONSUCCESS:
+		Global.LogType.CONNECTION_SUCCESS:
 			return "Connection established"
 	return "Unknown"

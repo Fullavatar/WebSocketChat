@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://y5laeq85f0uy"]
+[gd_scene load_steps=2 format=3 uid="uid://y5laeq85f0uy"]
+
+[ext_resource type="Script" path="res://script/authenticate.gd" id="1_nteg6"]
 
 [node name="Authenticate" type="Control"]
 modulate = Color(0.378864, 0.73734, 0.393514, 1)
@@ -9,6 +11,7 @@ offset_right = -0.256042
 offset_bottom = -0.16803
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_nteg6")
 
 [node name="Username" type="LineEdit" parent="."]
 layout_mode = 0
@@ -56,3 +59,7 @@ offset_right = 296.0
 offset_bottom = 259.0
 scale = Vector2(0.6, 0.6)
 text = "Forget Password ?"
+
+[connection signal="pressed" from="Login" to="." method="_on_login_pressed"]
+[connection signal="pressed" from="Create" to="." method="_on_create_pressed"]
+[connection signal="pressed" from="Forget" to="." method="_on_forget_pressed"]

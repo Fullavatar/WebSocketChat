@@ -1,0 +1,62 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3f8ec8j0uem4"]
+
+[ext_resource type="Script" path="res://script/signup.gd" id="1_4g4rp"]
+
+[node name="SignUp" type="Control"]
+modulate = Color(0.378864, 0.73734, 0.393514, 1)
+layout_mode = 3
+anchor_right = 0.278
+anchor_bottom = 0.741
+offset_right = -0.256042
+offset_bottom = -0.16803
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4g4rp")
+
+[node name="Username" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 100.0
+offset_right = 244.0
+offset_bottom = 131.0
+placeholder_text = "Enter Username ..."
+
+[node name="Email" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 149.0
+offset_right = 244.0
+offset_bottom = 180.0
+placeholder_text = "Enter Email ..."
+
+[node name="Password" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 200.0
+offset_right = 244.0
+offset_bottom = 231.0
+placeholder_text = "Enter Password ..."
+selecting_enabled = false
+secret = true
+secret_character = "*"
+
+[node name="Login" type="Button" parent="."]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 300.0
+offset_right = 244.0
+offset_bottom = 336.0
+text = "Signup  ..."
+
+[node name="Back" type="Button" parent="."]
+modulate = Color(0.183351, 0.804847, 0.554921, 1)
+layout_mode = 0
+offset_left = 55.0
+offset_top = 359.0
+offset_right = 114.0
+offset_bottom = 401.0
+theme_override_font_sizes/font_size = 12
+text = "Back
+⬅"
+
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

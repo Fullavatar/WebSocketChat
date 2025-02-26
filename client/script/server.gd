@@ -4,7 +4,7 @@ func _on_connect_pressed() -> void:
 	updateConnectionUIState(false)
 	get_tree().call_group(
 		"login",
-		"serverConnect",
+		"serverConnectionHandler",
 		$Address.text,
 		$Port.get_line_edit().text,
 	)

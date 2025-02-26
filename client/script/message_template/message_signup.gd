@@ -5,7 +5,6 @@ class_name SignUp
 @export var email:String
 @export var password:String
 
-
 func _init() -> void:
 	type = Global.MessageType.SIGNUP
 
