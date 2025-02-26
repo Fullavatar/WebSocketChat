@@ -14,3 +14,7 @@ config/name="ClientWebSocket"
 run/main_scene="res://scene/login.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://asset/icon.svg"
+
+[autoload]
+
+Global="*res://script/global.gd"

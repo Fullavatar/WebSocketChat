@@ -95,7 +95,9 @@ func _on_username_text_submitted(new_text: String) -> void:
 
 func _on_message_text_submitted(new_text: String) -> void:
 	if new_text != "":
-		var err = ws.send_text(new_text)
+		var chat = Chat.new()
+		chat.content = new_text
+		var err = ws.send_text(chat.to_json())
 		if err == OK:
 			$Message.clear()
 	$Message.release_focus()

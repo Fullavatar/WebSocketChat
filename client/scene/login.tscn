@@ -1,8 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://w6q1covoc7xy"]
+[gd_scene load_steps=7 format=3 uid="uid://w6q1covoc7xy"]
 
-[ext_resource type="Script" path="res://script/login.gd" id="1_mc475"]
+[ext_resource type="Script" path="res://script/login.gd" id="1_7yur4"]
+[ext_resource type="PackedScene" uid="uid://c7aov0asuh7mn" path="res://scene/server.tscn" id="2_76uxg"]
+[ext_resource type="PackedScene" uid="uid://y5laeq85f0uy" path="res://scene/authenticate.tscn" id="3_7yur4"]
+[ext_resource type="Script" path="res://script/logger.gd" id="4_7yur4"]
+[ext_resource type="PackedScene" uid="uid://c3f8ec8j0uem4" path="res://scene/signup.tscn" id="4_u7yg4"]
+[ext_resource type="PackedScene" uid="uid://b7s5fdi0y0tx8" path="res://scene/forget.tscn" id="5_i5fi3"]
 
-[node name="Control" type="Control"]
+[node name="Connect" type="Control" groups=["login"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,30 +18,49 @@ offset_right = -576.0
 offset_bottom = -324.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_mc475")
+script = ExtResource("1_7yur4")
 
-[node name="Connect" type="Button" parent="."]
+[node name="Server" parent="." instance=ExtResource("2_76uxg")]
+layout_mode = 1
+offset_left = -520.0
+offset_top = -311.5
+offset_right = -520.0
+offset_bottom = -311.5
+
+[node name="Authenticate" parent="." instance=ExtResource("3_7yur4")]
+visible = false
+layout_mode = 1
+offset_left = 200.0
+offset_top = -311.0
+offset_right = 200.0
+offset_bottom = -311.0
+
+[node name="SignUp" parent="." instance=ExtResource("4_u7yg4")]
+visible = false
+layout_mode = 1
+offset_left = 200.0
+offset_top = -311.0
+offset_right = 200.0
+offset_bottom = -311.0
+
+[node name="Forget" parent="." instance=ExtResource("5_i5fi3")]
+visible = false
+layout_mode = 1
+offset_left = 200.0
+offset_top = -311.0
+offset_right = 200.0
+offset_bottom = -311.0
+
+[node name="Log" type="RichTextLabel" parent="."]
+self_modulate = Color(0.870904, 0.414331, 0.439953, 1)
 layout_mode = 0
-offset_left = -80.0
-offset_top = -44.0
-offset_right = 80.0
-offset_bottom = -8.0
-text = "Connect ..."
-
-[node name="Address" type="LineEdit" parent="."]
-layout_mode = 0
-offset_left = -160.0
-offset_top = -132.0
-offset_right = 24.0
-offset_bottom = -101.0
-placeholder_text = "Enter IP address ..."
-
-[node name="Port" type="LineEdit" parent="."]
-layout_mode = 0
-offset_left = 40.0
-offset_top = -132.0
-offset_right = 144.0
-offset_bottom = -101.0
-placeholder_text = "Enter Port ..."
-
-[connection signal="pressed" from="Connect" to="." method="_on_connect_pressed"]
+offset_left = -563.0
+offset_top = 62.0
+offset_right = -96.0
+offset_bottom = 311.0
+focus_mode = 2
+scroll_following = true
+context_menu_enabled = true
+threaded = true
+selection_enabled = true
+script = ExtResource("4_7yur4")
