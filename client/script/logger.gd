@@ -17,6 +17,8 @@ func type_to_string(type:Global.LogType) -> String:
 			return "Connection timeout"
 		Global.LogType.CANNOT_PARSE_RESPONSE:
 			return "Can't parse response"
+		Global.LogType.CONNECTION_ESTABLISHED:
+			return "Server reached"
 		Global.LogType.CONNECTION_SUCCESS:
-			return "Connection established"
+			return "Connection to server is successful"
 	return "Unknown"

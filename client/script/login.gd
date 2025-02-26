@@ -15,8 +15,8 @@ func serverConnectionHandler(addr:String, prt:String):
 	handle_connection_result(Global.LogType.CONNECTING)
 	
 	var connection_validation = await serverConnectionValidation()
-	if !connection_validation["isValid"]:
-		handle_connection_result(connection_validation["result"])
+	handle_connection_result(connection_validation)
+	if connection_validation != Global.LogType.CONNECTION_ESTABLISHED:
 		return
 	
 	var response_validation = await serverResponseValidation()
@@ -68,24 +68,24 @@ func addressValidation()-> bool:
 	return true
 
 
-func serverConnectionValidation()-> Dictionary:
+func serverConnectionValidation()-> Global.LogType:
 	ws = WebSocketPeer.new()
 	if ws.connect_to_url("ws://" + address + ":" + port + "/ws") != OK:
-		return {"isValid": false, "result": Global.LogType.CONNECTION_FAILED}
+		return Global.LogType.CONNECTION_FAILED
 		
 	var connection_time := Time.get_ticks_msec() / 1000.0
 	while ws.get_ready_state() != WebSocketPeer.STATE_OPEN:
 		ws.poll()
 		if ws.get_ready_state() == WebSocketPeer.STATE_CLOSED:
-			return {"isValid": false, "result": Global.LogType.CONNECTION_FAILED}
+			return Global.LogType.CONNECTION_FAILED
 			
 		if ws.get_ready_state() == WebSocketPeer.STATE_CONNECTING:
 			if Time.get_ticks_msec() / 1000.0 - connection_time > timeout:
-				return {"isValid": false, "result": Global.LogType.CONNECTION_TIMEOUT}
+				return Global.LogType.CONNECTION_TIMEOUT
 			
 		await get_tree().process_frame
 		
-	return {"isValid": true}
+	return Global.LogType.CONNECTION_ESTABLISHED
 
 
 func serverResponseValidation()-> Global.LogType:
