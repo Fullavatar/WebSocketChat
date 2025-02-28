@@ -18,3 +18,7 @@ config/icon="res://asset/icon.svg"
 [autoload]
 
 Global="*res://script/global.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
